@@ -1,14 +1,16 @@
 import sys
 import threading
 import time
-
-from PySide6.QtGui import QTextCursor, QIcon
+from PySide6.QtGui import QTextCursor, QIcon, QPixmap
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, QSystemTrayIcon, QMenu)
 from plyer import notification
 
 from ui.ui_main_interface import Ui_MainWindow
 
 
+base_path = getattr(sys, '_MEIPASS', '')
+
+print(base_path)
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -37,7 +39,7 @@ class MySystemTrayIcon(QSystemTrayIcon):
     def __init__(self, qMainWindows):
         super(MySystemTrayIcon, self).__init__()
         # 创建系统托盘图标
-        self.setIcon(QIcon("./static/up.png"))
+        self.setIcon(QIcon(QPixmap(base_path+"rcc/static/up.png")))
         # 显示系统托盘菜单
         menu = QMenu(qMainWindows)
         restore_action = menu.addAction("主界面")
@@ -61,7 +63,13 @@ app = QApplication(sys.argv)
 
 mainWindow = MainWindow()
 mainWindow.setFixedSize(mainWindow.width(), mainWindow.height())
-mainWindow.setWindowIcon(QIcon("./static/up.png"))
+#pixmap = QPixmap(":/static/up.png")
+pixmap = QPixmap(base_path+"rcc/static/up.png")
+print(pixmap.isNull())
+print(pixmap)
+icon = QIcon(pixmap)
+print(icon)
+mainWindow.setWindowIcon(icon)
 ui = mainWindow.ui
 
 trayIcon = MySystemTrayIcon(mainWindow)
@@ -168,7 +176,7 @@ def notify_action():
     notify_num = int(ui.comboBox_2.currentText())
     for i in range(0, notify_num):
         notification.notify(
-            title='起来走走', message=ui.hint_pt.toPlainText(), app_icon="./static/up.ico",
+            title='起来走走', message=ui.hint_pt.toPlainText(), app_icon="rcc/static/up.ico",
             timeout=3, ticker='', toast=True,
         )
 
