@@ -1,3 +1,4 @@
+import os
 import sys
 import threading
 import time
@@ -7,6 +8,12 @@ from plyer import notification
 
 from ui.ui_main_interface import Ui_MainWindow
 
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
+
+ico_path = resource_path("static/up.ico")
 
 
 class MainWindow(QMainWindow):
@@ -37,7 +44,7 @@ class MySystemTrayIcon(QSystemTrayIcon):
     def __init__(self, qMainWindows):
         super(MySystemTrayIcon, self).__init__()
         # 创建系统托盘图标
-        self.setIcon(QIcon("static/up.ico"))
+        self.setIcon(QIcon(ico_path))
         # 显示系统托盘菜单
         menu = QMenu(qMainWindows)
         restore_action = menu.addAction("主界面")
@@ -61,7 +68,7 @@ app = QApplication(sys.argv)
 
 mainWindow = MainWindow()
 mainWindow.setFixedSize(mainWindow.width(), mainWindow.height())
-icon = QIcon("static/up.ico")
+icon = QIcon(ico_path)
 mainWindow.setWindowIcon(icon)
 ui = mainWindow.ui
 
@@ -169,7 +176,7 @@ def notify_action():
     notify_num = int(ui.comboBox_2.currentText())
     for i in range(0, notify_num):
         notification.notify(
-            title='起来走走', message=ui.hint_pt.toPlainText(), app_icon="static/up.ico",
+            title='起来走走', message=ui.hint_pt.toPlainText(), app_icon=ico_path,
             timeout=3, ticker='', toast=True,
         )
 
