@@ -3,8 +3,7 @@ import sys
 import threading
 import time
 
-from PySide6.QtCore import QPoint
-from PySide6.QtGui import QTextCursor, QIcon, QAction, QCursor, QDesktopServices
+from PySide6.QtGui import QTextCursor, QIcon
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, QSystemTrayIcon, QMenu)
 from plyer import notification
 
