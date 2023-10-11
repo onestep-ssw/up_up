@@ -37,7 +37,7 @@ class MySystemTrayIcon(QSystemTrayIcon):
     def __init__(self, qMainWindows):
         super(MySystemTrayIcon, self).__init__()
         # 创建系统托盘图标
-        self.setIcon(QIcon("static/up.png"))
+        self.setIcon(QIcon("static/up.ico"))
         # 显示系统托盘菜单
         menu = QMenu(qMainWindows)
         restore_action = menu.addAction("主界面")
@@ -61,7 +61,7 @@ app = QApplication(sys.argv)
 
 mainWindow = MainWindow()
 mainWindow.setFixedSize(mainWindow.width(), mainWindow.height())
-icon = QIcon("static/up.png")
+icon = QIcon("static/up.ico")
 mainWindow.setWindowIcon(icon)
 ui = mainWindow.ui
 
