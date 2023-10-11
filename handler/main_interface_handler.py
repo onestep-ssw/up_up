@@ -2,11 +2,14 @@ import os
 import sys
 import threading
 import time
-from PySide6.QtGui import QTextCursor, QIcon, QPixmap
+
+from PySide6.QtCore import QPoint
+from PySide6.QtGui import QTextCursor, QIcon, QAction, QCursor, QDesktopServices
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, QSystemTrayIcon, QMenu)
 from plyer import notification
 
 from ui.ui_main_interface import Ui_MainWindow
+
 
 def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +28,7 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         # 隐藏窗口
         self.hide()
-        trayIcon.iconShow()
+        # trayIcon.iconShow()
         # 忽略关闭事件
         event.ignore()
 
@@ -52,6 +55,7 @@ class MySystemTrayIcon(QSystemTrayIcon):
         restore_action.triggered.connect(qMainWindows.showNormal)
         quit_action.triggered.connect(self.quitApplication)
         self.setContextMenu(menu)
+        self.show()
 
     def quitApplication(self):
         # 退出应用程序
@@ -59,7 +63,8 @@ class MySystemTrayIcon(QSystemTrayIcon):
         QApplication.quit()
 
     def iconShow(self):
-        self.show()
+        # self.show()
+        pass
 
 
 thread_c = None
