@@ -2,7 +2,6 @@ import os
 import sys
 import threading
 import time
-
 from PySide6.QtGui import QTextCursor, QIcon
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, QSystemTrayIcon, QMenu)
 from plyer import notification
@@ -54,7 +53,7 @@ class MySystemTrayIcon(QSystemTrayIcon):
         restore_action.triggered.connect(qMainWindows.showNormal)
         quit_action.triggered.connect(self.quitApplication)
         self.setContextMenu(menu)
-        self.show()
+        self.iconShow()
 
     def quitApplication(self):
         # 退出应用程序
@@ -62,7 +61,7 @@ class MySystemTrayIcon(QSystemTrayIcon):
         QApplication.quit()
 
     def iconShow(self):
-        # self.show()
+        self.show()
         pass
 
 
@@ -189,8 +188,7 @@ def notify_action():
     for i in range(0, notify_num):
         notification.notify(
             title='起来走走', message=ui.hint_pt.toPlainText(), app_icon=ico_path,
-            timeout=3, ticker='', toast=True,
-        )
+            timeout=3, ticker='', toast=False,)
 
 
 def loop_open_flag():
