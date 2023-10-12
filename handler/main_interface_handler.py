@@ -66,6 +66,12 @@ class MySystemTrayIcon(QSystemTrayIcon):
         pass
 
 
+def main_page_show(reason):
+    activa = QSystemTrayIcon.ActivationReason
+    if reason == activa.Trigger or reason == activa.DoubleClick:
+        mainWindow.showNormal()
+
+
 thread_c = None
 
 app = QApplication(sys.argv)
@@ -77,6 +83,8 @@ mainWindow.setWindowIcon(icon)
 ui = mainWindow.ui
 
 trayIcon = MySystemTrayIcon(mainWindow)
+
+trayIcon.activated.connect(main_page_show)
 
 
 ## 确认开始倒计时
